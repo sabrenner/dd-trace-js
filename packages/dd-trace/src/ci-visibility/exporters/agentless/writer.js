@@ -16,6 +16,7 @@ class Writer extends BaseWriter {
   _sendPayload (data, _, done) {
     makeRequest(data, this._url, (err, res) => {
       if (err) {
+        console.log(err)
         log.error(err)
         done()
         return
@@ -28,7 +29,7 @@ class Writer extends BaseWriter {
 
 function makeRequest (data, url, cb) {
   const options = {
-    path: '/api/v2/citestcycle',
+    path: '/evp_proxy/v1/input/citestcycle-intake' + '/api/v2/citestcycle',
     method: 'POST',
     headers: {
       'Content-Type': 'application/msgpack',
@@ -43,6 +44,7 @@ function makeRequest (data, url, cb) {
 
   log.debug(() => `Request to the intake: ${JSON.stringify(options)}`)
 
+  console.log("SENDERINO", options)
   request(data, options, false, (err, res) => {
     cb(err, res)
   })
